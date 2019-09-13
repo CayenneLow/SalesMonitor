@@ -14,7 +14,7 @@ for result in results:
         price = anchorTag.find(text=True)[1:]
         try:
             price = float(price)
-            if price >= 200 and price <= 390:
+            if price >= 200 and price <= 350:
                 link = "http://www.staticice.com.au" + anchorTag['href']
                 print(link)
                 sendEmail(price, link)
