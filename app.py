@@ -1,21 +1,32 @@
 from bs4 import BeautifulSoup
 from sendEmail import sendEmail
 import urllib3
+import json
 
-http = urllib3.PoolManager()
-page = http.request("GET", "http://www.staticice.com.au/cgi-bin/search.cgi?q=bose+qc35&spos=3")
-soup = BeautifulSoup(page.data, 'html.parser')
+# open file
+f = open("links.json", "r")
+contents = f.read()
+parsedContent = json.loads(contents)
 
-results = soup.findAll("td", {"align": "left"})
-for result in results:
-    if result.findChildren("a"):
-        anchorTag = result.findChildren("a")[0]
-        price = anchorTag.find(text=True)[1:]
-        try:
-            price = float(price)
-            if price >= 200 and price <= 350:
-                link = "http://www.staticice.com.au" + anchorTag['href']
-                print(link)
-                sendEmail(price, link)
-        except Exception as e:
-            print(e)
+def scrape(page, lowerBound, upperBound):
+    soup = BeautifulSoup(page.data, 'html.parser')
+    results = soup.findAll("td", {"align": "left"})
+    for result in results:
+        if result.findChildren("a"):
+            anchorTag = result.findChildren("a")[0]
+            price = anchorTag.find(text=True)[1:]
+            try:
+                price = float(price)
+                if price >= lowerBound and price <= upperBound:
+                    link = "http://www.staticice.com.au" + anchorTag['href']
+                    print(link)
+                    sendEmail(price, link)
+            except Exception as e:
+                print(e)
+
+for link in parsedContent:
+    http = urllib3.PoolManager()
+    page = http.request("GET", link['link'])
+    scrape(page, link['lowerBound'], link['upperBound'])
+
+
