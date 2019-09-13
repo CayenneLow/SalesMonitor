@@ -3,8 +3,7 @@ from sendEmail import sendEmail
 import urllib3
 
 http = urllib3.PoolManager()
-page = http.request(
-    "GET", "http://www.staticice.com.au/cgi-bin/search.cgi?q=bose+qc35&spos=3")
+page = http.request("GET", "http://www.staticice.com.au/cgi-bin/search.cgi?q=bose+qc35&spos=3")
 soup = BeautifulSoup(page.data, 'html.parser')
 
 results = soup.findAll("td", {"align": "left"})
