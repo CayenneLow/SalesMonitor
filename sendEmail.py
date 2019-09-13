@@ -3,7 +3,6 @@ import config
 
 accessKeyId= config.accessKeyId
 secretAccessKey = config.secretAccessKey
-print(accessKeyId)
 
 sns = boto3.client(
             'sns', 
