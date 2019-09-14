@@ -27,6 +27,7 @@ def scrape(page, lowerBound, upperBound):
 for link in parsedContent:
     http = urllib3.PoolManager()
     page = http.request("GET", link['link'])
-    scrape(page, link['lowerBound'], link['upperBound'])
+    print("Scraping for {}".format(link['name']))
+    scrape(page, float(link['lowerBound']), float(link['upperBound']))
 
 
