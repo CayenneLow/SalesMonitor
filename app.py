@@ -8,7 +8,7 @@ f = open("links.json", "r")
 contents = f.read()
 parsedContent = json.loads(contents)
 
-def scrape(page, lowerBound, upperBound):
+def scrape(page, name, lowerBound, upperBound):
     soup = BeautifulSoup(page.data, 'html.parser')
     results = soup.findAll("td", {"align": "left"})
     for result in results:
@@ -20,7 +20,7 @@ def scrape(page, lowerBound, upperBound):
                 if price >= lowerBound and price <= upperBound:
                     link = "http://www.staticice.com.au" + anchorTag['href']
                     print(link)
-                    sendEmail(price, link)
+                    sendEmail(name, price, link)
             except Exception as e:
                 print(e)
 
@@ -28,6 +28,6 @@ for link in parsedContent:
     http = urllib3.PoolManager()
     page = http.request("GET", link['link'])
     print("Scraping for {}".format(link['name']))
-    scrape(page, float(link['lowerBound']), float(link['upperBound']))
+    scrape(page, link['name'], float(link['lowerBound']), float(link['upperBound']))
 
 

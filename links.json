@@ -10,5 +10,11 @@
     "link": "http://www.staticice.com.au/cgi-bin/search.cgi?q=sony%20wh-1000xm3&spos=6",
     "upperBound": "350",
     "lowerBound": "200"
+  },
+  {
+    "name": "Bose QC35 II",
+    "link": "http://www.staticice.com.au/cgi-bin/search.cgi?q=bose%20quiet%20comfort%2035&spos=6",
+    "upperBound": "348",
+    "lowerBound": "200"
   }
 ]

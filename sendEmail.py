@@ -12,10 +12,10 @@ sns = boto3.client(
         )
 
 # Publish a simple message to the specified SNS topic
-def sendEmail(price, link):
+def sendEmail(name, price, link):
     response = sns.publish(
         TopicArn='arn:aws:sns:ap-southeast-2:828914858024:SalesMonitor',    
-        Message="Get dem headphones for {} at {} boi".format(price, link),    
+        Message="{} is now {} at: {}".format(name, price, link),    
     )
 
     # Print out the response
