@@ -8,6 +8,10 @@ Monitor price of product on StaticIce
 
 # Architecture
 - Python scraper based on BeautifulSoup4 deployed on AWS Lambda
+    - Lambda settings:
+        - 192 MB memory
+        - 1 min timeout
+        - Handler: app.lambda_handler
 - Cloudwatch Events triggers AWS lambda every 5 minutes
 - On a matched event, an SNS message is sent to every subscriber
 # Notes
