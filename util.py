@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
-import boto3
 import requests
-import config
 
 def scrape(page, name, lowerBound, upperBound):
     soup = BeautifulSoup(page.data, 'html.parser')
@@ -38,9 +36,3 @@ def isOutOfStock(page):
         if keyword in page:
             return True
     return False
-
-def reboot():
-    currentInstanceId = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
-    print(currentInstanceId + " now rebooting")
-    ec2 = boto3.client('ec2', aws_access_key_id=config.accessKeyId, aws_secret_access_key=config.secretAccessKey, region_name="ap-southeast-2")
-    ec2.terminate_instances(InstanceIds=[currentInstanceId])
