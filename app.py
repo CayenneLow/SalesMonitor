@@ -1,8 +1,10 @@
 # from sendEmail import sendEmail
 from util import scrape
-import requests
 import json
 import datetime
+import urllib3
+
+http = urllib3.PoolManager()
 
 def lambda_handler(event, context):
     # open file
@@ -12,10 +14,9 @@ def lambda_handler(event, context):
 
     print("=== Executing now at: {} ===".format(datetime.datetime.now()))
     for link in parsedContent:
-        page = requests.get(link['link'], timeout=10).text  # timeout after 10 seconds
+        page = http.request("GET", link['link'], timeout=10.0)
         if "blocked" in page:
             raise Exception("Current ip address blocked")
         print("Scraping for {}".format(link['name']))
-        scrape(page, link['name'], float(link['lowerBound']), float(link['upperBound']))
-
+        scrape(http, page, link['name'], float(link['lowerBound']), float(link['upperBound']))
 

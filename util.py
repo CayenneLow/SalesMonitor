@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
-import requests
+import urllib3
 
-def scrape(page, name, lowerBound, upperBound):
+def scrape(http, page, name, lowerBound, upperBound):
     soup = BeautifulSoup(page.data, 'html.parser')
     results = soup.findAll("td", {"align": "left"})
     for result in results:
@@ -12,16 +12,17 @@ def scrape(page, name, lowerBound, upperBound):
                 price = float(price)
                 if price >= lowerBound and price <= upperBound:
                     link = "http://www.staticice.com.au" + anchorTag['href']
-                    if (not isOutOfStock(getPage(link))):
+                    if (not isOutOfStock(http, getPage(link))):
                         print(link)
                         sendEmail(name, price, link)
             except Exception as e:
                 print(e)
 
-def getPage(link):
+def getPage(http, link):
     # Get redirection page
-    page = requests.get(link).text
-    soup = BeautifulSoup(page, 'html.parser')
+    page = http.request("GET", link['link'], timeout=10.0)
+    print(page)
+    soup = BeautifulSoup(page.data, 'html.parser')
     metaTag = soup.find("meta")
     redirect = metaTag["content"].split("=")[1]
     # Access redirect page
