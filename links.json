@@ -4,5 +4,12 @@
     "link": "https://www.staticice.com.au/cgi-bin/search.cgi?price-min=700&q=rtx+3070&pda=0&spos=7",
     "upperBound": "900",
     "lowerBound": "750"
+  },
+  {
+    "name": "RX 6800",
+    "link": "https://www.staticice.com.au/cgi-bin/search.cgi?q=radeon+rx+6800&spos=3",
+    "upperBound": "900",
+    "lowerBound": "750"
   }
+
 ]
