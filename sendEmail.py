@@ -14,7 +14,7 @@ sns = boto3.client(
 # Publish a simple message to the specified SNS topic
 def sendEmail(name, price, link):
     response = sns.publish(
-        TopicArn='arn:aws:sns:ap-southeast-2:828914858024:SalesMonitor',    
+        TopicArn='arn:aws:sns:ap-southeast-2:520715813539:Sales-Monitor',    
         Message="{} is now {} at: {}".format(name, price, link),    
     )
 
