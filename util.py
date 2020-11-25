@@ -43,4 +43,4 @@ def reboot():
     currentInstanceId = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
     print(currentInstanceId + " now rebooting")
     ec2 = boto3.client('ec2', aws_access_key_id=config.accessKeyId, aws_secret_access_key=config.secretAccessKey, region_name="ap-southeast-2")
-    ec2.reboot_instances(InstanceIds=[currentInstanceId])
+    ec2.terminate_instances(InstanceIds=[currentInstanceId])
