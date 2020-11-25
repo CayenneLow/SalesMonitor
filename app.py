@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from sendEmail import sendEmail
 import urllib3
 import json
+import datetime
 
 # open file
 f = open("links.json", "r")
@@ -19,11 +20,11 @@ def scrape(page, name, lowerBound, upperBound):
                 price = float(price)
                 if price >= lowerBound and price <= upperBound:
                     link = "http://www.staticice.com.au" + anchorTag['href']
-                    print(link)
                     sendEmail(name, price, link)
             except Exception as e:
                 print(e)
 
+print("=== Executing now at: {} ===".format(datetime.datetime.now()))
 for link in parsedContent:
     http = urllib3.PoolManager()
     page = http.request("GET", link['link'])
