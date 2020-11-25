@@ -40,6 +40,7 @@ def isOutOfStock(page):
     return False
 
 def reboot():
-    currentInstanceId = requests.get("http://169.254.169.254/latest/meta-data/instance-id")
-    ec2 = boto3.client('ec2', config.accessKeyId, config.secretAccessKey)
+    currentInstanceId = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
+    print(currentInstanceId + " now rebooting")
+    ec2 = boto3.client('ec2', aws_access_key_id=config.accessKeyId, aws_secret_access_key=config.secretAccessKey, region_name="ap-southeast-2")
     ec2.reboot_instances(InstanceIds=[currentInstanceId])
