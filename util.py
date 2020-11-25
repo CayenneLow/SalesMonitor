@@ -12,7 +12,7 @@ def scrape(http, page, name, lowerBound, upperBound):
                 price = float(price)
                 if price >= lowerBound and price <= upperBound:
                     link = "http://www.staticice.com.au" + anchorTag['href']
-                    if (not isOutOfStock(http, getPage(link))):
+                    if (not isOutOfStock(http, getPage(http, link))):
                         print(link)
                         sendEmail(name, price, link)
             except Exception as e:
