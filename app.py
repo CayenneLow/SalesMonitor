@@ -9,6 +9,7 @@ f = open("links.json", "r")
 contents = f.read()
 parsedContent = json.loads(contents)
 
+print("=== Executing now at: {} ===".format(datetime.datetime.now()))
 for link in parsedContent:
     http = urllib3.PoolManager()
     page = http.request("GET", link['link'])

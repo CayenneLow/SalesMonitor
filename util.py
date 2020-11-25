@@ -14,7 +14,7 @@ def scrape(page, name, lowerBound, upperBound):
                     link = "http://www.staticice.com.au" + anchorTag['href']
                     if (not isOutOfStock(getPage(link))):
                         print(link)
-                        # sendEmail(name, price, link)
+                        sendEmail(name, price, link)
             except Exception as e:
                 print(e)
 
