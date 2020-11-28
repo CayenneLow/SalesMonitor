@@ -31,7 +31,7 @@ def getPage(http, link):
 
 def isOutOfStock(page):
     page = page.lower()
-    keywords = ["Out of Stock", "Notify me", "Pre Order", "Pre-Order", "Sold Out", "Discontinued"]
+    keywords = ["Out of Stock", "Notify me", "Pre Order", "Pre-Order", "Preorder", "Sold Out", "Discontinued"]
     for keyword in keywords:
         keyword = bytes(keyword.lower(), 'utf-8')   # urllib3 returns data in bytes, so need to convert query terms
         if keyword in page:
